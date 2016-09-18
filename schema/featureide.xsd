@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="featureModel">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="1" minOccurs="1" ref="struct"/>
+				<xs:element maxOccurs="1" minOccurs="1" ref="constraints"/>
+				<xs:element name="comments" type="xs:string"/>
+				<xs:element ref="featureOrder"/>
+			</xs:sequence>
+			<xs:attribute default="4" name="chosenLayoutAlgorithm" type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="struct">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="1" minOccurs="1" ref="and"/> <!-- root -->
+			</xs:sequence>
+		</xs:complexType> 
+	</xs:element>
+	
+	<xs:element name="and">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="parent">
+					<xs:attribute name="mandatory" type="xs:boolean" use="optional"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="or">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="parent">
+					<xs:attribute name="mandatory" type="xs:boolean" use="optional"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="alt">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="parent">
+					<xs:attribute name="mandatory" type="xs:boolean" use="optional"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+
+	
+	<xs:element name="feature">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="namedElement">
+					<xs:sequence>
+						<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					</xs:sequence>
+					<xs:attribute name="mandatory" type="xs:boolean" use="optional"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>	
+	</xs:element>
+	
+	<xs:element name="constraints">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" minOccurs="0" ref="rule"/>
+			</xs:sequence>
+		</xs:complexType>		
+	</xs:element>	
+		
+	<xs:element name="rule">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" minOccurs="0" ref="imp"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="imp">
+		<xs:complexType>
+			<xs:sequence maxOccurs="2" minOccurs="2">
+				<xs:choice>
+					<xs:element ref="var"/>
+					<xs:element ref="not"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="not">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="1" minOccurs="1" ref="var"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="var" type="xs:string"/>
+	
+	<xs:element name="featureOrder">
+		<xs:complexType>
+			<xs:attribute name="userDefined" type="xs:boolean" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:complexType name="namedElement">
+		<xs:attribute name="name" type="xs:string"/>
+	</xs:complexType>
+	
+	<xs:complexType name="parent">
+		<xs:complexContent>
+			<xs:extension base="namedElement">
+				<xs:sequence maxOccurs="unbounded" minOccurs="0">
+					<xs:choice>
+						<xs:element ref="and" />
+						<xs:element ref="alt" />
+						<xs:element ref="or" />
+						<xs:element ref="feature"/>
+						<xs:element name="description" type="xs:string"/>
+					</xs:choice>
+				</xs:sequence>	
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>	
+</xs:schema>
