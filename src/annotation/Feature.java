@@ -11,4 +11,5 @@ public @interface Feature {
 	boolean or() default false;
 	boolean xor() default false;
 	boolean requerido() default false;
+	String requiero() default "";
 }
