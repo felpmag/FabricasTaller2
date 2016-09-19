@@ -27,6 +27,11 @@ public class FeatureProcessor extends AbstractProcessor<CtAnnotation<Feature>> {
 
 	@Override
 	public void process(CtAnnotation<Feature> annotation) {
+		if (!(annotation.getActualAnnotation() instanceof Feature)) {
+			System.out.println("excluida " + annotation.getSignature());
+			return;
+		}
+
 		Feature annFeature = annotation.getActualAnnotation();
 		String nombre = annFeature.nombre();
 
@@ -69,11 +74,9 @@ public class FeatureProcessor extends AbstractProcessor<CtAnnotation<Feature>> {
 	@Override
 	public void processingDone() {
 		super.processingDone();
-		System.out.println("Termina procesamiento");
-		// generateFeatureIDEModel();
-		System.out.println("Raiz:" + root);
-		System.out.println("Contenido:" + features);
+		System.out.println("Generando modelo");
 		generateFeatureIDEModel();
+		System.out.println("Termina procesamiento");
 	}
 
 	private void generateFeatureIDEModel() {
@@ -101,10 +104,10 @@ public class FeatureProcessor extends AbstractProcessor<CtAnnotation<Feature>> {
 	}
 
 	private void addNode(Parent parent, FeatureNode node) {
-		//TODO no siempre es un And, puede ser Alt o Or
+		// TODO no siempre es un And, puede ser Alt o Or
 		And modelNode = new And(node.getFeature().nombre(), null, node.getFeature().requerido());
 		parent.getAndOrAltOrOr().add(modelNode);
-		processChild(node,modelNode);
+		processChild(node, modelNode);
 	}
 
 	private void addFeature(Parent modelNode, FeatureNode node) {
