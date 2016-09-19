@@ -1,11 +1,18 @@
 package processor;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
 import spoon.processing.AbstractProcessor;
 import spoon.reflect.declaration.CtAnnotation;
 import annotation.Feature;
+import featureide.And;
+import featureide.Constraints;
+import featureide.FeatureModel;
+import featureide.FeatureOrder;
+import featureide.Parent;
+import featureide.Struct;
 
 public class FeatureProcessor extends AbstractProcessor<CtAnnotation<Feature>> {
 
@@ -61,23 +68,56 @@ public class FeatureProcessor extends AbstractProcessor<CtAnnotation<Feature>> {
 
 	@Override
 	public void processingDone() {
+		super.processingDone();
 		System.out.println("Termina procesamiento");
 		// generateFeatureIDEModel();
 		System.out.println("Raiz:" + root);
 		System.out.println("Contenido:" + features);
 		generateFeatureIDEModel();
-		super.processingDone();
 	}
 
 	private void generateFeatureIDEModel() {
-		// FeatureModel model = buildModel();
-		// Struct value = new Struct();
-		// model.setStruct(value);
-		//
-		// And rootFeat = new And();
-		// value.setAnd(rootFeat);
-		//
-		// rootFeat.setName(root.getFeature().nombre());
+		FeatureModel model = buildModel();
+		model.getStruct().setAnd(new And(root.getFeature().nombre(), null, true));
+
+		processChild(root, model.getStruct().getAnd());
+
+		JaxbWriterReader.jaxbWriterNoSchema(model, "./src/main/resources/model.xml");
+	}
+
+	@SuppressWarnings("unchecked")
+	private void processChild(FeatureNode node, Parent modelNode) {
+		Enumeration<FeatureNode> children = node.children();
+		while (children.hasMoreElements()) {
+			FeatureNode child = children.nextElement();
+			if (isModelFeature(child)) {
+				addFeature(modelNode, child);
+			} else {
+				addNode(modelNode, child);
+			}
+
+		}
+
+	}
+
+	private void addNode(Parent parent, FeatureNode node) {
+		//TODO no siempre es un And, puede ser Alt o Or
+		And modelNode = new And(node.getFeature().nombre(), null, node.getFeature().requerido());
+		parent.getAndOrAltOrOr().add(modelNode);
+		processChild(node,modelNode);
+	}
+
+	private void addFeature(Parent modelNode, FeatureNode node) {
+		modelNode.getAndOrAltOrOr().add(
+				new featureide.Feature(node.getFeature().nombre(), null, node.getFeature().requerido()));
+	}
+
+	private boolean isModelFeature(FeatureNode node) {
+		return node.getDepth() == 0 ? true : false;
+	}
+
+	private FeatureModel buildModel() {
+		return new FeatureModel(new Struct(), new Constraints(), "", new FeatureOrder(false), null);
 	}
 
 }

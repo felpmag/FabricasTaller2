@@ -6,8 +6,8 @@ package annotation;
  * @author felipemartinez
  */
 public @interface Feature {
+	String nombre();
 	String padre() default "";
-	String nombre() default "";
 	boolean or() default false;
 	boolean xor() default false;
 	boolean requerido() default false;

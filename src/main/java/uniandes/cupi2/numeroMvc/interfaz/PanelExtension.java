@@ -26,7 +26,7 @@ import annotation.Feature;
 /**
  * Panel de manejo de extensiones
  */
-@Feature(padre="InterfazNumeroMvc", or=true, requerido=true)
+@Feature(nombre = "PanelExtension", padre = "InterfazNumeroMvc", or = true, requerido = true)
 public class PanelExtension extends JPanel implements ActionListener
 {
 
@@ -108,7 +108,8 @@ public class PanelExtension extends JPanel implements ActionListener
      * Manejo de los eventos de los botones.
      * @param e Acci�n que gener� el evento.
      */
-    @Feature(padre="PanelExtension", or=true)
+    @Override
+	@Feature(nombre="ManejoEvento", padre="PanelExtension", or=true)
     public void actionPerformed( ActionEvent e )
     {
         if( OPCION_1.equals( e.getActionCommand( ) ) )
