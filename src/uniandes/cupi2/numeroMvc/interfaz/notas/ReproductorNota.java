@@ -1,14 +1,14 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
  * $Id: ReproductorNota.java,v 1.7 2008/08/14 10:48:30 jua-gome Exp $
- * Universidad de los Andes (Bogotá - Colombia) 
- * Departamento de Ingeniería de Sistemas y Computación 
+ * Universidad de los Andes (Bogotï¿½ - Colombia) 
+ * Departamento de Ingenierï¿½a de Sistemas y Computaciï¿½n 
  * Todos los derechos reservados 2006 
  * 
  * Proyecto Cupi2 (http://cupi2.uniandes.edu.co)
  * Ejercicio: n15_numeroMvc
  * Autor: Diana Puentes - Jul 29, 2005
- * Modificado por: Juan Erasmo Gómez - 7-Ago-2008  
+ * Modificado por: Juan Erasmo Gï¿½mez - 7-Ago-2008  
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
  */
 
@@ -16,12 +16,16 @@ package uniandes.cupi2.numeroMvc.interfaz.notas;
 
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.Synthesizer;
+
+import annotation.Feature;
+
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 
 /**
  * Clase que permite tocar una nota.
  */
+@Feature(padre="VentanaNotas", nombre="ReproductorNota", or=true )
 public class ReproductorNota
 {
     // -----------------------------------------------------------------
@@ -29,7 +33,7 @@ public class ReproductorNota
     // -----------------------------------------------------------------
 
     /**
-     * Guarda la información de inicialización del reproductor.
+     * Guarda la informaciï¿½n de inicializaciï¿½n del reproductor.
      */
     private static boolean inicializado;
 
@@ -39,14 +43,15 @@ public class ReproductorNota
     private static Synthesizer synth;
 
     // -----------------------------------------------------------------
-    // Métodos
+    // Mï¿½todos
     // -----------------------------------------------------------------
 
     /**
      * Toca la nota indicada, las notas van de 0 a 120 siendo 60 el Do central, 61 Do#, etc
-     * @param nota - valor numérico de la nota a reproducir.
+     * @param nota - valor numï¿½rico de la nota a reproducir.
      * @param canal - el instrumento con el que se quiere tocar la nota. Van de 0 a 15. 0, es el piano.
      */
+    @Feature(padre="ReproductorNota", nombre="TocarNotaReproductorNota", requerido=true)
     public static void tocarNota( int nota, int canal )
     {
         // Inicializa si es necesario
@@ -82,10 +87,10 @@ public class ReproductorNota
                 {
                     // define el instrumento a tocar
                     channel = synth.getChannels( )[ canalT ];
-                    // prende la nota indicada en el número dado, con un tiempo de decaimiento promedio
+                    // prende la nota indicada en el nï¿½mero dado, con un tiempo de decaimiento promedio
                     channel.noteOn( notaT, 100 );
 
-                    // Realiza una espera para darle duración a la nota
+                    // Realiza una espera para darle duraciï¿½n a la nota
                     try
                     {
                         Thread.yield( );

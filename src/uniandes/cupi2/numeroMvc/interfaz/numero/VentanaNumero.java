@@ -1,15 +1,15 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * $Id: VentanaNumero.java,v 1.6 2008/08/14 10:34:20 jua-gome Exp $
- * Universidad de los Andes (Bogotá - Colombia)
- * Departamento de Ingeniería de Sistemas y Computación 
+ * Universidad de los Andes (Bogotï¿½ - Colombia)
+ * Departamento de Ingenierï¿½a de Sistemas y Computaciï¿½n 
  * Licenciado bajo el esquema Academic Free License version 2.1 
  *
  * Proyecto Cupi2 (http://cupi2.uniandes.edu.co)
  * Ejercicio: n15_numeroMvc
  * Autor: Pablo Barvo - Mar 3, 2006
  * Modificado por: Daniel Romero - 22-Sep-2006
- * Modificado por: Juan Erasmo Gómez - 7-Ago-2008  
+ * Modificado por: Juan Erasmo Gï¿½mez - 7-Ago-2008  
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -20,11 +20,13 @@ import java.awt.Dimension;
 
 import javax.swing.JInternalFrame;
 
+import annotation.Feature;
 import uniandes.cupi2.numeroMvc.mundo.Numero;
 
 /**
- * Ventana de visualización en formato de números decimales.
+ * Ventana de visualizaciï¿½n en formato de nï¿½meros decimales.
  */
+@Feature(padre="InterfazNumeroMvc", nombre="VentanaNumero", xor=true)
 public class VentanaNumero extends JInternalFrame
 {
 
@@ -33,7 +35,7 @@ public class VentanaNumero extends JInternalFrame
     // -----------------------------------------------------------------
 
     /**
-     * Constante de serialización.
+     * Constante de serializaciï¿½n.
      */
     private static final long serialVersionUID = -1041687579265094542L;
 
@@ -42,7 +44,7 @@ public class VentanaNumero extends JInternalFrame
     // -----------------------------------------------------------------
 
     /**
-     * Panel con la visualización y el control.
+     * Panel con la visualizaciï¿½n y el control.
      */
     private PanelNumero panelNumero;
 
@@ -52,8 +54,9 @@ public class VentanaNumero extends JInternalFrame
 
     /**
      * Constructor del panel.
-     * @param numero Número a visualizar-modificar.
+     * @param numero Nï¿½mero a visualizar-modificar.
      */
+    @Feature(padre="VentanaNumero", nombre="VentanaNumeroConstructor", requerido=true)
     public VentanaNumero( Numero numero )
     {
         setSize( 276, 150 );

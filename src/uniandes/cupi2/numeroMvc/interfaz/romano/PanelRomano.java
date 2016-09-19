@@ -1,15 +1,15 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * $Id: PanelRomano.java,v 1.8 2008/08/14 11:08:45 jua-gome Exp $
- * Universidad de los Andes (Bogotá - Colombia)
- * Departamento de Ingeniería de Sistemas y Computación 
+ * Universidad de los Andes (Bogotï¿½ - Colombia)
+ * Departamento de Ingenierï¿½a de Sistemas y Computaciï¿½n 
  * Licenciado bajo el esquema Academic Free License version 2.1 
  *
  * Proyecto Cupi2 (http://cupi2.uniandes.edu.co)
  * Ejercicio: n15_numeroMvc
  * Autor: Pablo Barvo - Mar 3, 2006
  * Modificado por: Daniel Romero - 22-Sep-2006
- * Modificado por: Juan Erasmo Gómez - 7-Ago-2008  
+ * Modificado por: Juan Erasmo Gï¿½mez - 7-Ago-2008  
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -28,11 +28,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import annotation.Feature;
 import uniandes.cupi2.numeroMvc.mundo.Numero;
 
 /**
- * Panel Vista-Controlador de la visualización Tipo Romano.
+ * Panel Vista-Controlador de la visualizaciï¿½n Tipo Romano.
  */
+@Feature(padre="VentanaRomano", nombre="PanelRomano", requerido= true, requiero="Numero")
 public class PanelRomano extends JPanel implements Observer, ActionListener
 {
 
@@ -41,17 +43,17 @@ public class PanelRomano extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Constante de serialización.
+     * Constante de serializaciï¿½n.
      */
     private static final long serialVersionUID = 6027780429950087974L;
 
     /**
-     * Constante para la acción del botón anterior.
+     * Constante para la acciï¿½n del botï¿½n anterior.
      */
     private final static String ANTERIOR = "Anterior";
 
     /**
-     * Constante para la acción del botón siguiente.
+     * Constante para la acciï¿½n del botï¿½n siguiente.
      */
     private final static String SIGUIENTE = "Siguiente";
 
@@ -61,7 +63,7 @@ public class PanelRomano extends JPanel implements Observer, ActionListener
     private static int[] numeros = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
 
     /**
-     * Letras de los números romanos.
+     * Letras de los nï¿½meros romanos.
      */
     private static String[] letras = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
 
@@ -70,7 +72,7 @@ public class PanelRomano extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Modelo: Número que se está modificando.
+     * Modelo: Nï¿½mero que se estï¿½ modificando.
      */
     private Numero numero;
 
@@ -79,17 +81,17 @@ public class PanelRomano extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Vista: Visualización del Número en Romano.
+     * Vista: Visualizaciï¿½n del Nï¿½mero en Romano.
      */
     private JLabel etiquetaNumero;
 
     /**
-     * Control: Botón Siguiente.
+     * Control: Botï¿½n Siguiente.
      */
     private JButton botonSiguiente;
 
     /**
-     * Control: Botón de Anterior.
+     * Control: Botï¿½n de Anterior.
      */
     private JButton botonAnterior;
 
@@ -99,11 +101,12 @@ public class PanelRomano extends JPanel implements Observer, ActionListener
 
     /**
      * Constructor del panel.
-     * @param num Número a visualizar.
+     * @param num Nï¿½mero a visualizar.
      */
+    @Feature(padre="PanelRomano", nombre="ConstructorPanelRomano", or=true, requerido=true)
     public PanelRomano( Numero num )
     {
-        // Guarda el número
+        // Guarda el nï¿½mero
         numero = num;
 
         // Inicializa el panel
@@ -136,14 +139,14 @@ public class PanelRomano extends JPanel implements Observer, ActionListener
         panelControl.add( botonSiguiente, BorderLayout.EAST );
         panelControl.add( botonAnterior, BorderLayout.WEST );
 
-        // Adición del panel y la etiqueta
+        // Adiciï¿½n del panel y la etiqueta
         add( etiquetaNumero, BorderLayout.CENTER );
         add( panelControl, BorderLayout.SOUTH );
 
         // Conecta el observador
         numero.addObserver( this );
 
-        // Cambia el número
+        // Cambia el nï¿½mero
         etiquetaNumero.setText( darRomano( numero.darNumero( ) ) );
     }
 
@@ -152,8 +155,9 @@ public class PanelRomano extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Método llamado por JAVA al salir el panel de la vista del usuario.
+     * Mï¿½todo llamado por JAVA al salir el panel de la vista del usuario.
      */
+    @Feature(padre="PanelRomano", nombre="RemoveNotifyPanelRomano", or=true)
     public void removeNotify( )
     {
         // Elimina el observador
@@ -161,14 +165,15 @@ public class PanelRomano extends JPanel implements Observer, ActionListener
     }
 
     // -----------------------------------------------------------------
-    // Métodos
+    // Mï¿½todos
     // -----------------------------------------------------------------
 
     /**
-     * Vista: Retorna el número en representación romana.
-     * @param num Número a convertir.
-     * @return Representación en números romanos del número ingresado.
+     * Vista: Retorna el nï¿½mero en representaciï¿½n romana.
+     * @param num Nï¿½mero a convertir.
+     * @return Representaciï¿½n en nï¿½meros romanos del nï¿½mero ingresado.
      */
+    @Feature(padre="PanelRomano", nombre="DarRomanoPanelRomano", or=true)
     public String darRomano( int num )
     {
         // Valida el numero
@@ -196,45 +201,49 @@ public class PanelRomano extends JPanel implements Observer, ActionListener
     }
 
     /**
-     * Control: Resta 1 al número visualizado.
+     * Control: Resta 1 al nï¿½mero visualizado.
      */
+    @Feature(padre="PanelRomano", nombre="AnteriorPanelRomano", or=true)
     public void anterior( )
     {
         numero.cambiarNumero( numero.darNumero( ) - 1 );
     }
 
     /**
-     * Control: Suma 1 al número visualizado.
+     * Control: Suma 1 al nï¿½mero visualizado.
      */
+    @Feature(padre="PanelRomano", nombre="SiguientePanelRomano", or=true)
     public void siguiente( )
     {
         numero.cambiarNumero( numero.darNumero( ) + 1 );
     }
 
     /**
-     * Vista: Recibe la notificación de cambio de valor del número.
+     * Vista: Recibe la notificaciï¿½n de cambio de valor del nï¿½mero.
      */
+    @Feature(padre="PanelRomano", nombre="UpdatePanelRomano", or=true)
     public void update( Observable sender, Object num )
     {
         Integer numero = ( Integer )num;
 
-        // Vista: Actualiza la visualización
+        // Vista: Actualiza la visualizaciï¿½n
         etiquetaNumero.setText( darRomano( numero.intValue( ) ) );
     }
 
     /**
      * Manejo de los eventos de los botones.
-     * @param e Acción que generó el evento.
+     * @param e Acciï¿½n que generï¿½ el evento.
      */
+    @Feature(padre="PanelRomano", nombre="ActionPerformedPanelRomano", or=true)
     public void actionPerformed( ActionEvent e )
     {
         String comando = e.getActionCommand( );
 
         if( ANTERIOR.equals( comando ) )
-            // Control: Cambia el número por el anterior
+            // Control: Cambia el nï¿½mero por el anterior
             anterior( );
         else if( SIGUIENTE.equals( comando ) )
-            // Control: Cambia el número por el siguiente
+            // Control: Cambia el nï¿½mero por el siguiente
             siguiente( );
     }
 

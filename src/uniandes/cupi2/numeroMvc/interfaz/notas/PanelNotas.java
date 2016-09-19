@@ -1,15 +1,15 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * $Id: PanelNotas.java,v 1.8 2008/08/14 11:08:45 jua-gome Exp $
- * Universidad de los Andes (Bogotá - Colombia)
- * Departamento de Ingeniería de Sistemas y Computación 
+ * Universidad de los Andes (Bogotï¿½ - Colombia)
+ * Departamento de Ingenierï¿½a de Sistemas y Computaciï¿½n 
  * Licenciado bajo el esquema Academic Free License version 2.1 
  *
  * Proyecto Cupi2 (http://cupi2.uniandes.edu.co)
  * Ejercicio: n15_numeroMvc
  * Autor: Pablo Barvo - Mar 3, 2006
  * Modificado por: Daniel Romero - 22-Sep-2006
- * Modificado por: Juan Erasmo Gómez - 7-Ago-2008  
+ * Modificado por: Juan Erasmo Gï¿½mez - 7-Ago-2008  
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -29,11 +29,13 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
+import annotation.Feature;
 import uniandes.cupi2.numeroMvc.mundo.Numero;
 
 /**
- * Panel Vista-Controlador de la visualización Tipo Nota Musical.
+ * Panel Vista-Controlador de la visualizaciï¿½n Tipo Nota Musical.
  */
+@Feature(padre="VentanaNotas", nombre="PanelNotas", or=true, requerido= true, requiero="Numero")
 public class PanelNotas extends JPanel implements Observer, ActionListener
 {
 
@@ -42,17 +44,17 @@ public class PanelNotas extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Constante de serialización.
+     * Constante de serializaciï¿½n.
      */
     private static final long serialVersionUID = 8169100775679594866L;
 
     /**
-     * Constante para la acción del botón de seleccionar nota.
+     * Constante para la acciï¿½n del botï¿½n de seleccionar nota.
      */
     private final static String CAMBIAR = "Seleccionar Nota";
 
     /**
-     * Constante para la acción del botón de tocar nota.
+     * Constante para la acciï¿½n del botï¿½n de tocar nota.
      */
     private final static String TOCAR = "Tocar";
 
@@ -61,7 +63,7 @@ public class PanelNotas extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Modelo: Número que se está modificando.
+     * Modelo: Nï¿½mero que se estï¿½ modificando.
      */
     private Numero numero;
 
@@ -70,27 +72,28 @@ public class PanelNotas extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Vista: Visualización de la Nota Musical.
+     * Vista: Visualizaciï¿½n de la Nota Musical.
      */
     private JLabel etiquetaNumero;
 
     /**
-     * Control: Botón de envío de el cambio nota.
+     * Control: Botï¿½n de envï¿½o de el cambio nota.
      */
     private JButton botonCambiar;
 
     /**
-     * Botón para tocar la nota
+     * Botï¿½n para tocar la nota
      */
     private JButton botonTocar;
 
     /**
      * Constructor del panel
-     * @param num Número a visualizar
+     * @param num Nï¿½mero a visualizar
      */
+    @Feature(padre="PanelNotas", nombre="ConstructorPanelNotas", or=true, requerido=true)
     public PanelNotas( Numero num )
     {
-        // Guarda el número
+        // Guarda el nï¿½mero
         numero = num;
 
         // Inicializa el panel
@@ -124,14 +127,14 @@ public class PanelNotas extends JPanel implements Observer, ActionListener
         panelControl.add( botonCambiar, BorderLayout.CENTER );
         panelControl.add( botonTocar, BorderLayout.EAST );
 
-        // Adición del panel y la etiqueta
+        // Adiciï¿½n del panel y la etiqueta
         add( etiquetaNumero, BorderLayout.CENTER );
         add( panelControl, BorderLayout.SOUTH );
 
         // Conecta el observador
         numero.addObserver( this );
         //
-        // Cambia el número
+        // Cambia el nï¿½mero
         etiquetaNumero.setText( "Frecuencia Musical: " + darNota( numero.darNumero( ) ) + " (" + numero.darNumero( ) + ")" );
     }
 
@@ -140,8 +143,9 @@ public class PanelNotas extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Método llamado por JAVA al salir el panel de la vista del usuario.
+     * Mï¿½todo llamado por JAVA al salir el panel de la vista del usuario.
      */
+    @Feature(padre="PanelNotas", nombre="RemoveNotifyPanelNotas", or=true)
     public void removeNotify( )
     {
         // Elimina el observador
@@ -149,12 +153,13 @@ public class PanelNotas extends JPanel implements Observer, ActionListener
     }
 
     // -----------------------------------------------------------------
-    // Métodos
+    // Mï¿½todos
     // -----------------------------------------------------------------
 
     /**
-     * Control: Reemplaza el número visualizado con el número representado por la nota ingresada por el usuario.
+     * Control: Reemplaza el nï¿½mero visualizado con el nï¿½mero representado por la nota ingresada por el usuario.
      */
+    @Feature(padre="PanelNotas", nombre="CambiarNotaPanelNotas", or=true)
     public void cambiarNota( )
     {
         Object[] notas = { "Do", "Re", "Mi", "Fa", "Sol", "La", "Si" };
@@ -177,24 +182,26 @@ public class PanelNotas extends JPanel implements Observer, ActionListener
             else if( "Si".equals( nota ) )
                 numeroNota = 61;
 
-            // Cambia el número
+            // Cambia el nï¿½mero
             numero.cambiarNumero( numeroNota );
         }
     }
 
     /**
-     * Vista: Toca la nota equivalente al número visualizado.
+     * Vista: Toca la nota equivalente al nï¿½mero visualizado.
      */
+    @Feature(padre="PanelNotas", nombre="TocarNotaPanelNotas", or=true)
     public void tocarNota( )
     {
         ReproductorNota.tocarNota( darNota( numero.darNumero( ) ), 0 );
     }
 
     /**
-     * Vista: Retorna la nota que se representa con un número.
-     * @param numero Número a representar.
-     * @return Nota representada por el número ingresado.
+     * Vista: Retorna la nota que se representa con un nï¿½mero.
+     * @param numero Nï¿½mero a representar.
+     * @return Nota representada por el nï¿½mero ingresado.
      */
+    @Feature(padre="PanelNotas", nombre="DarNotaPanelNotas", or=true)
     public int darNota( int numero )
     {
         int nota = ( numero % 100 ) + 10;
@@ -202,21 +209,23 @@ public class PanelNotas extends JPanel implements Observer, ActionListener
     }
 
     /**
-     * Vista: Recibe la notificación de cambio de valor del número.
+     * Vista: Recibe la notificaciï¿½n de cambio de valor del nï¿½mero.
      */
+    @Feature(padre="PanelNotas", nombre="ActionPerformedPanelNotas", or=true)
     public void update( Observable sender, Object num )
     {
         Integer numero = ( Integer )num;
 
-        // Vista: Actualiza la visualización
+        // Vista: Actualiza la visualizaciï¿½n
         etiquetaNumero.setText( "Frecuencia Musical: " + darNota( numero.intValue( ) ) + " (" + numero.intValue( ) + ")" );
         tocarNota( );
     }
 
     /**
      * Manejo de los eventos de los botones.
-     * @param e Acción que generó el evento.
+     * @param e Acciï¿½n que generï¿½ el evento.
      */
+    @Feature(padre="PanelNotas", nombre="ActionPerformedPanelNotas", or=true)
     public void actionPerformed( ActionEvent e )
     {
         String comando = e.getActionCommand( );

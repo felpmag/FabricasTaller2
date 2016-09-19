@@ -1,15 +1,15 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * $Id: PanelNumero.java,v 1.6 2008/08/14 11:08:45 jua-gome Exp $
- * Universidad de los Andes (Bogotá - Colombia)
- * Departamento de Ingeniería de Sistemas y Computación 
+ * Universidad de los Andes (Bogotï¿½ - Colombia)
+ * Departamento de Ingenierï¿½a de Sistemas y Computaciï¿½n 
  * Licenciado bajo el esquema Academic Free License version 2.1 
  *
  * Proyecto Cupi2 (http://cupi2.uniandes.edu.co)
  * Ejercicio: n15_numeroMvc
  * Autor: Pablo Barvo - Mar 3, 2006
  * Modificado por: Daniel Romero - 22-Sep-2006
- * Modificado por: Juan Erasmo Gómez - 7-Ago-2008  
+ * Modificado por: Juan Erasmo Gï¿½mez - 7-Ago-2008  
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -30,11 +30,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import annotation.Feature;
 import uniandes.cupi2.numeroMvc.mundo.Numero;
 
 /**
- * Panel Vista-Controlador de la visualización Tipo Decimal.
+ * Panel Vista-Controlador de la visualizaciï¿½n Tipo Decimal.
  */
+@Feature(padre="VentanaNumero", nombre="PanelNumero", requerido= true, requiero="Numero")
 public class PanelNumero extends JPanel implements Observer, ActionListener
 {
 
@@ -43,12 +45,12 @@ public class PanelNumero extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Constante de serialización.
+     * Constante de serializaciï¿½n.
      */
     private static final long serialVersionUID = 8638090313032173271L;
 
     /**
-     * Constante para la acción del botón de cambiar número.
+     * Constante para la acciï¿½n del botï¿½n de cambiar nï¿½mero.
      */
     private final static String CAMBIAR = "Cambiar";
 
@@ -57,7 +59,7 @@ public class PanelNumero extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Modelo: Número que se está modificando.
+     * Modelo: Nï¿½mero que se estï¿½ modificando.
      */
     private Numero numero;
 
@@ -66,17 +68,17 @@ public class PanelNumero extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Vista: Visualización del Número.
+     * Vista: Visualizaciï¿½n del Nï¿½mero.
      */
     private JLabel etiquetaNumero;
 
     /**
-     * Control: Botón de envío de el cambio de número.
+     * Control: Botï¿½n de envï¿½o de el cambio de nï¿½mero.
      */
     private JButton botonCambiar;
 
     /**
-     * Control: Campo de texto para el cambio de número.
+     * Control: Campo de texto para el cambio de nï¿½mero.
      */
     private JTextField textoNumero;
 
@@ -86,11 +88,12 @@ public class PanelNumero extends JPanel implements Observer, ActionListener
 
     /**
      * Constructor del panel.
-     * @param num Número a visualizar.
+     * @param num Nï¿½mero a visualizar.
      */
+    @Feature(padre="PanelNumero", nombre="ConstructorPanelNumero", or=true, requerido=true)
     public PanelNumero( Numero num )
     {
-        // Guarda el número
+        // Guarda el nï¿½mero
         numero = num;
 
         // Inicializa el panel
@@ -120,14 +123,14 @@ public class PanelNumero extends JPanel implements Observer, ActionListener
         panelControl.add( botonCambiar, BorderLayout.EAST );
         panelControl.add( textoNumero, BorderLayout.CENTER );
 
-        // Adición del panel y la etiqueta
+        // Adiciï¿½n del panel y la etiqueta
         add( etiquetaNumero, BorderLayout.CENTER );
         add( panelControl, BorderLayout.SOUTH );
 
         // Conecta el observador
         numero.addObserver( this );
 
-        // Cambia el número
+        // Cambia el nï¿½mero
         etiquetaNumero.setText( Integer.toString( numero.darNumero( ) ) );
     }
 
@@ -136,8 +139,9 @@ public class PanelNumero extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Método llamado por JAVA al salir el panel de la vista del usuario.
+     * Mï¿½todo llamado por JAVA al salir el panel de la vista del usuario.
      */
+    @Feature(padre="PanelNumero", nombre="RemoveNotifyPanelNumero", or=true)
     public void removeNotify( )
     {
         // Elimina el observador
@@ -145,12 +149,13 @@ public class PanelNumero extends JPanel implements Observer, ActionListener
     }
 
     // -----------------------------------------------------------------
-    // Métodos
+    // Mï¿½todos
     // -----------------------------------------------------------------
 
     /**
-     * Control: Reemplaza el número visualizado con el número escrito en el campo de texto.
+     * Control: Reemplaza el nï¿½mero visualizado con el nï¿½mero escrito en el campo de texto.
      */
+    @Feature(padre="PanelNumero", nombre="ModificarNumeroPanelNumero", or=true)
     public void modificarNumero( )
     {
         try
@@ -160,31 +165,33 @@ public class PanelNumero extends JPanel implements Observer, ActionListener
         }
         catch( NumberFormatException e )
         {
-            JOptionPane.showMessageDialog( this, "El número especificado es inválido", "Error", JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog( this, "El nï¿½mero especificado es invï¿½lido", "Error", JOptionPane.ERROR_MESSAGE );
         }
     }
 
     /**
-     * Vista: Recibe la notificación de cambio de valor del número.
+     * Vista: Recibe la notificaciï¿½n de cambio de valor del nï¿½mero.
      */
+    @Feature(padre="PanelNumero", nombre="UpdatePanelNumero", or=true)
     public void update( Observable sender, Object num )
     {
         Integer numero = ( Integer )num;
         textoNumero.setText( "" );
         //
-        // Vista: Actualiza la visualización
+        // Vista: Actualiza la visualizaciï¿½n
         etiquetaNumero.setText( numero.toString( ) );
     }
 
     /**
      * Manejo de los eventos de los botones.
-     * @param e Acción que generó el evento.
+     * @param e Acciï¿½n que generï¿½ el evento.
      */
+    @Feature(padre="PanelNumero", nombre="ActionPerformedPanelNumero", or=true)
     public void actionPerformed( ActionEvent e )
     {
         String comando = e.getActionCommand( );
         if( CAMBIAR.equals( comando ) )
-            // Control: Modifica el número.
+            // Control: Modifica el nï¿½mero.
             modificarNumero( );
     }
 

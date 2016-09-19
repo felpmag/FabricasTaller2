@@ -1,15 +1,15 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * $Id: PanelBinario.java,v 1.6 2008/08/14 11:08:45 jua-gome Exp $
- * Universidad de los Andes (Bogotá - Colombia)
- * Departamento de Ingeniería de Sistemas y Computación 
+ * Universidad de los Andes (Bogotï¿½ - Colombia)
+ * Departamento de Ingenierï¿½a de Sistemas y Computaciï¿½n 
  * Licenciado bajo el esquema Academic Free License version 2.1 
  *
  * Proyecto Cupi2 (http://cupi2.uniandes.edu.co)
  * Ejercicio: n15_numeroMvc
  * Autor: Pablo Barvo - Mar 3, 2006
  * Modificado por: Daniel Romero - 22-Sep-2006
- * Modificado por: Juan Erasmo Gómez - 7-Ago-2008  
+ * Modificado por: Juan Erasmo Gï¿½mez - 7-Ago-2008  
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -29,11 +29,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import annotation.Feature;
 import uniandes.cupi2.numeroMvc.mundo.Numero;
 
 /**
- * Panel Vista-Controlador de la visualización Tipo Binario.
+ * Panel Vista-Controlador de la visualizaciï¿½n Tipo Binario.
  */
+@Feature(padre="VentanaBinario", nombre="PanelBinario", requerido= true, requiero="Numero")
 public class PanelBinario extends JPanel implements Observer, ActionListener
 {
 
@@ -42,12 +44,12 @@ public class PanelBinario extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Constante de serialización.
+     * Constante de serializaciï¿½n.
      */
     private static final long serialVersionUID = -2486744718378309246L;
 
     /**
-     * Constantes para la acción del botón de cambiar número.
+     * Constantes para la acciï¿½n del botï¿½n de cambiar nï¿½mero.
      */
     private final static String CAMBIAR = "Cambiar";
 
@@ -56,7 +58,7 @@ public class PanelBinario extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Modelo: Número que se está visualizando.
+     * Modelo: Nï¿½mero que se estï¿½ visualizando.
      */
     private Numero numero;
 
@@ -65,17 +67,17 @@ public class PanelBinario extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Vista: Visualización del Número.
+     * Vista: Visualizaciï¿½n del Nï¿½mero.
      */
     private JLabel etiquetaNumero;
 
     /**
-     * Control: Botón de envío del cambio de número.
+     * Control: Botï¿½n de envï¿½o del cambio de nï¿½mero.
      */
     private JButton botonCambiar;
 
     /**
-     * Control: Campo de texto para el cambio de número.
+     * Control: Campo de texto para el cambio de nï¿½mero.
      */
     private JTextField textoNumeroBinario;
 
@@ -85,11 +87,12 @@ public class PanelBinario extends JPanel implements Observer, ActionListener
 
     /**
      * Constructor del panel.
-     * @param num Número a visualizar.
+     * @param num Nï¿½mero a visualizar.
      */
+    @Feature(padre="PanelBinario", nombre="ConstructorPanelBinario", or=true, requerido=true)
     public PanelBinario( Numero num )
     {
-        // Guarda el número
+        // Guarda el nï¿½mero
         numero = num;
 
         // Inicializa el panel
@@ -119,14 +122,14 @@ public class PanelBinario extends JPanel implements Observer, ActionListener
         panelControl.add( botonCambiar, BorderLayout.EAST );
         panelControl.add( textoNumeroBinario, BorderLayout.CENTER );
 
-        // Adición del panel y la etiqueta
+        // Adiciï¿½n del panel y la etiqueta
         add( etiquetaNumero, BorderLayout.CENTER );
         add( panelControl, BorderLayout.SOUTH );
 
         // Conecta el observador
         numero.addObserver( this );
 
-        // Cambia el número
+        // Cambia el nï¿½mero
         etiquetaNumero.setText( Integer.toBinaryString( numero.darNumero( ) ) );
     }
 
@@ -135,8 +138,9 @@ public class PanelBinario extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Método llamado por JAVA al salir el panel de la vista del usuario.
+     * Mï¿½todo llamado por JAVA al salir el panel de la vista del usuario.
      */
+    @Feature(padre="PanelBinario", nombre="RemoveNotifyPanelBinario", or=true)
     public void removeNotify( )
     {
         // Elimina el observador
@@ -144,12 +148,13 @@ public class PanelBinario extends JPanel implements Observer, ActionListener
     }
 
     // -----------------------------------------------------------------
-    // Métodos
+    // Mï¿½todos
     // -----------------------------------------------------------------
 
     /**
-     * Control: Reemplaza el número visualizado con el número escrito en el campo de texto.
+     * Control: Reemplaza el nï¿½mero visualizado con el nï¿½mero escrito en el campo de texto.
      */
+    @Feature(padre="PanelBinario", nombre="ModificarNumeroPanelBinario", or=true)
     public void modificarNumero( )
     {
         try
@@ -159,32 +164,34 @@ public class PanelBinario extends JPanel implements Observer, ActionListener
         }
         catch( NumberFormatException e )
         {
-            JOptionPane.showMessageDialog( this, "El número en binario especificado es inválido", "Error", JOptionPane.ERROR_MESSAGE );
+            JOptionPane.showMessageDialog( this, "El nï¿½mero en binario especificado es invï¿½lido", "Error", JOptionPane.ERROR_MESSAGE );
         }
     }
 
     /**
-     * Vista: Recibe la notificación de cambio de valor del número.
+     * Vista: Recibe la notificaciï¿½n de cambio de valor del nï¿½mero.
      */
+    @Feature(padre="PanelBinario", nombre="UpdatePanelBinario", or=true)
     public void update( Observable sender, Object num )
     {
         Integer numero = ( Integer )num;
         textoNumeroBinario.setText( "" );
 
-        // Vista: Actualiza la visualización
+        // Vista: Actualiza la visualizaciï¿½n
         etiquetaNumero.setText( Integer.toBinaryString( numero.intValue( ) ) );
     }
 
     /**
      * Manejo de los eventos de los botones.
-     * @param e Acción que generó el evento.
+     * @param e Acciï¿½n que generï¿½ el evento.
      */
+    @Feature(padre="PanelBinario", nombre="ActionPerformedPanelBinario", or=true)
     public void actionPerformed( ActionEvent e )
     {
         String comando = e.getActionCommand( );
 
         if( CAMBIAR.equals( comando ) )
-            // Control: Modificar Número
+            // Control: Modificar Nï¿½mero
             modificarNumero( );
     }
 

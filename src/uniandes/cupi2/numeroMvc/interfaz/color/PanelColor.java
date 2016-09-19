@@ -1,15 +1,15 @@
 /**
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * $Id: PanelColor.java,v 1.7 2008/08/14 11:08:45 jua-gome Exp $
- * Universidad de los Andes (Bogotá - Colombia)
- * Departamento de Ingeniería de Sistemas y Computación 
+ * Universidad de los Andes (Bogotï¿½ - Colombia)
+ * Departamento de Ingenierï¿½a de Sistemas y Computaciï¿½n 
  * Licenciado bajo el esquema Academic Free License version 2.1 
  *
  * Proyecto Cupi2 (http://cupi2.uniandes.edu.co)
  * Ejercicio: n15_numeroMvc
  * Autor: Pablo Barvo - Mar 3, 2006
  * Modificado por: Daniel Romero - 22-Sep-2006
- * Modificado por: Juan Erasmo Gómez - 7-Ago-2008  
+ * Modificado por: Juan Erasmo Gï¿½mez - 7-Ago-2008  
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -29,11 +29,13 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+import annotation.Feature;
 import uniandes.cupi2.numeroMvc.mundo.Numero;
 
 /**
- * Panel Vista-Controlador de la visualización Tipo Color.
+ * Panel Vista-Controlador de la visualizaciï¿½n Tipo Color.
  */
+@Feature(padre="VentanaColor", nombre="PanelColor", requerido= true, requiero="Numero")
 public class PanelColor extends JPanel implements Observer, ActionListener
 {
 
@@ -42,12 +44,12 @@ public class PanelColor extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Constante de serialización.
+     * Constante de serializaciï¿½n.
      */
     private static final long serialVersionUID = 164393480331818959L;
 
     /**
-     * Constante para la acción del botón de selecciónar color.
+     * Constante para la acciï¿½n del botï¿½n de selecciï¿½nar color.
      */
     private final static String SELECCIONAR_COLOR = "Seleccionar Color";
 
@@ -56,7 +58,7 @@ public class PanelColor extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Modelo: Numero que se está visualizando.
+     * Modelo: Numero que se estï¿½ visualizando.
      */
     private Numero numero;
 
@@ -65,12 +67,12 @@ public class PanelColor extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Vista: Visualización del Color.
+     * Vista: Visualizaciï¿½n del Color.
      */
     private JLabel etiquetaNumero;
 
     /**
-     * Control: Botón de envío de el cambio de número.
+     * Control: Botï¿½n de envï¿½o de el cambio de nï¿½mero.
      */
     private JButton botonCambiar;
 
@@ -80,11 +82,12 @@ public class PanelColor extends JPanel implements Observer, ActionListener
 
     /**
      * Constructor del panel.
-     * @param num Número a visualizar.
+     * @param num Nï¿½mero a visualizar.
      */
+    @Feature(padre="PanelColor", nombre="ConstructorPanelColor", or=true, requerido=true)
     public PanelColor( Numero num )
     {
-        // Guarda el número
+        // Guarda el nï¿½mero
         numero = num;
 
         // Inicializa el panel
@@ -111,7 +114,7 @@ public class PanelColor extends JPanel implements Observer, ActionListener
         panelControl.setLayout( new BorderLayout( ) );
         panelControl.add( botonCambiar, BorderLayout.CENTER );
 
-        // Adición del panel y la etiqueta
+        // Adiciï¿½n del panel y la etiqueta
         add( etiquetaNumero, BorderLayout.CENTER );
         add( panelControl, BorderLayout.SOUTH );
 
@@ -127,8 +130,9 @@ public class PanelColor extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Método llamado por JAVA al salir el panel de la vista del usuario.
+     * Mï¿½todo llamado por JAVA al salir el panel de la vista del usuario.
      */
+    @Feature(padre="PanelColor", nombre="RemoveNotifyPanelColor", or=true)
     public void removeNotify( )
     {
         // Elimina el observador
@@ -136,12 +140,13 @@ public class PanelColor extends JPanel implements Observer, ActionListener
     }
 
     // -----------------------------------------------------------------
-    // Métodos
+    // Mï¿½todos
     // -----------------------------------------------------------------
 
     /**
-     * Control: Selecciona un color y modifica el número.
+     * Control: Selecciona un color y modifica el nï¿½mero.
      */
+    @Feature(padre="PanelColor", nombre="CambiarColorPanelColor", or=true)
     public void cambiarColor( )
     {
         Color nuevoColor = JColorChooser.showDialog( this, "Seleccione el color", etiquetaNumero.getBackground( ) );
@@ -150,20 +155,22 @@ public class PanelColor extends JPanel implements Observer, ActionListener
     }
 
     /**
-     * Vista: Recibe la notificación de cambio de valor del número.
+     * Vista: Recibe la notificaciï¿½n de cambio de valor del nï¿½mero.
      */
+    @Feature(padre="PanelColor", nombre="UpdatePanelColor", or=true)
     public void update( Observable sender, Object num )
     {
         Integer numero = ( Integer )num;
 
-        // Vista: Actualiza la visualización
+        // Vista: Actualiza la visualizaciï¿½n
         etiquetaNumero.setBackground( new Color( numero.intValue( ) ) );
     }
 
     /**
      * Manejo de los eventos de los botones
-     * @param e Acción que generó el evento.
+     * @param e Acciï¿½n que generï¿½ el evento.
      */
+    @Feature(padre="PanelColor", nombre="ActionPerformedPanelColor", or=true)
     public void actionPerformed( ActionEvent e )
     {
         String comando = e.getActionCommand( );
