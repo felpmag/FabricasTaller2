@@ -6,8 +6,9 @@ package annotation;
  * @author felipemartinez
  */
 public @interface Feature {
-	Class<?> padre();
-	boolean or() default true;
+	Class<?> padre() default DEFAULT.class;      
+	static final class DEFAULT {};
+	boolean or() default false;
 	boolean xor() default false;
-	boolean requerido() default true;
+	boolean requerido() default false;
 }
