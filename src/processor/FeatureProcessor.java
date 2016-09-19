@@ -66,7 +66,8 @@ public class FeatureProcessor extends AbstractProcessor<CtAnnotation<Feature>> {
 	@Override
 	public void processingDone() {
 		System.out.println("Termina procesamiento");
-		generateFeatureIDEModel();
+		// generateFeatureIDEModel();
+		System.out.println(root);
 		super.processingDone();
 	}
 

@@ -10,7 +10,7 @@ public class Invoker {
 	public static void main(String args[]){
 		Invoker invoker = new Invoker();
 		//Source code path, and processor to be executed
-		invoker.invokeSpoon("./src/code/", "processor.Processor");
+		invoker.invokeSpoon("./src/uniandes/", "processor.FeatureProcessor");
 	}
 	
 	/**
