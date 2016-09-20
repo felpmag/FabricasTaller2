@@ -1,5 +1,10 @@
 package processor;
 
+/**
+ * Clase Nodo.
+ * @author felipemartinez
+ */
+
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import annotation.Feature;
