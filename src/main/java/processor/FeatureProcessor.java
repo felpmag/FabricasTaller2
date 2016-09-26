@@ -11,13 +11,16 @@ import featureide.And;
 import featureide.Constraints;
 import featureide.FeatureModel;
 import featureide.FeatureOrder;
+import featureide.Imp;
 import featureide.Parent;
+import featureide.Rule;
 import featureide.Struct;
 
 public class FeatureProcessor extends AbstractProcessor<CtAnnotation<Feature>> {
 
 	private Map<String, FeatureNode> features = new HashMap<>();
 	private FeatureNode root;
+	private Constraints constraint = new Constraints();
 
 	@Override
 	public void init() {
@@ -25,6 +28,7 @@ public class FeatureProcessor extends AbstractProcessor<CtAnnotation<Feature>> {
 		super.init();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void process(CtAnnotation<Feature> annotation) {
 		if (!(annotation.getActualAnnotation() instanceof Feature)) {
@@ -37,7 +41,7 @@ public class FeatureProcessor extends AbstractProcessor<CtAnnotation<Feature>> {
 
 		FeatureNode feature = features.getOrDefault(nombre, new FeatureNode(annFeature));
 		features.put(nombre, feature);
-
+				
 		checkEmptyNode(feature, annFeature);
 
 		if (annFeature.padre().equals("")) {
@@ -84,7 +88,8 @@ public class FeatureProcessor extends AbstractProcessor<CtAnnotation<Feature>> {
 		model.getStruct().setAnd(new And(root.getFeature().nombre(), null, true));
 
 		processChild(root, model.getStruct().getAnd());
-
+		model.setConstraints(constraint);
+		
 		JaxbWriterReader.jaxbWriterNoSchema(model, "./src/main/resources/model.xml");
 	}
 
@@ -93,14 +98,34 @@ public class FeatureProcessor extends AbstractProcessor<CtAnnotation<Feature>> {
 		Enumeration<FeatureNode> children = node.children();
 		while (children.hasMoreElements()) {
 			FeatureNode child = children.nextElement();
+			///---
+			getConstraint(child);
+			
 			if (isModelFeature(child)) {
 				addFeature(modelNode, child);
 			} else {
 				addNode(modelNode, child);
 			}
-
 		}
-
+	}
+	
+	/**
+	 * Get Constraint.
+	 * @param child
+	 */
+	private void getConstraint(FeatureNode child){
+		if(!child.getFeature().requiero().isEmpty()){
+			Rule rule = new Rule();
+			Imp imple = new Imp();
+			/// B implies A
+			imple.getVarOrNot().add(child.getFeature().nombre());
+			rule.getImp().add(imple);
+			
+			imple.getVarOrNot().add(child.getFeature().requiero());
+			rule.getImp().add(imple);
+			
+			constraint.getRule().add(rule);
+		}
 	}
 
 	private void addNode(Parent parent, FeatureNode node) {

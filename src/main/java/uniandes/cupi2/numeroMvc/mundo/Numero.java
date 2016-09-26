@@ -21,7 +21,7 @@ import uniandes.cupi2.numeroMvc.interfaz.InterfazNumeroMvc;
 /**
  * Representa un n�mero que puede ser observado.
  */
-@Feature(padre="InterfazNumeroMvc", nombre="Numero", or=true, requerido= true)
+@Feature(nombre = "Numero", padre = "InterfazNumeroMvc", or=true, requerido= true)
 public class Numero extends Observable
 {
 
