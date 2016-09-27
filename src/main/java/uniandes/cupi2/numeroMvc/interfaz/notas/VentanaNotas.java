@@ -27,7 +27,7 @@ import uniandes.cupi2.numeroMvc.mundo.Numero;
 /**
  * Ventana de visualizaci�n en formato de notas musicales.
  */
-@Feature(padre = "Ventana", nombre = "VentanaNotas", relacion = RestriccionHijos.ALT)
+@Feature(padre = "Ventana", nombre = "VentanaNotas")
 public class VentanaNotas extends JInternalFrame {
 
     // -----------------------------------------------------------------

@@ -27,7 +27,7 @@ import uniandes.cupi2.numeroMvc.mundo.Numero;
 /**
  * Ventana de visualizaci�n en formato de n�meros decimales.
  */
-@Feature(padre = "Ventana", nombre = "VentanaNumero", relacion = RestriccionHijos.ALT)
+@Feature(padre = "Ventana", nombre = "VentanaNumero")
 public class VentanaNumero extends JInternalFrame {
 
     // -----------------------------------------------------------------

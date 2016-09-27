@@ -27,7 +27,7 @@ import uniandes.cupi2.numeroMvc.mundo.Numero;
 /**
  * Ventana de visualizaci�n en formato de n�meros binarios.
  */
-@Feature(padre = "Ventana", nombre = "VentanaBinario", relacion = RestriccionHijos.ALT)
+@Feature(padre = "Ventana", nombre = "VentanaBinario")
 public class VentanaBinario extends JInternalFrame {
 
     // -----------------------------------------------------------------

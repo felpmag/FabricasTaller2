@@ -26,7 +26,7 @@ import uniandes.cupi2.numeroMvc.mundo.Numero;
 /**
  * Ventana de visualizaci�n en formato de color.
  */
-@Feature(padre = "Ventana", nombre = "VentanaColor", relacion = RestriccionHijos.ALT)
+@Feature(padre = "Ventana", nombre = "VentanaColor")
 public class VentanaColor extends JInternalFrame {
 
     // -----------------------------------------------------------------

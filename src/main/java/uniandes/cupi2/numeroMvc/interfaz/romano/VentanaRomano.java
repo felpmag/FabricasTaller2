@@ -26,7 +26,7 @@ import uniandes.cupi2.numeroMvc.mundo.Numero;
 /**
  * Ventana de visualizaci�n en formato de n�meros romanos.
  */
-@Feature(padre = "Ventana", nombre = "VentanaRomano", relacion = RestriccionHijos.ALT)
+@Feature(padre = "Ventana", nombre = "VentanaRomano")
 public class VentanaRomano extends JInternalFrame {
 
     // -----------------------------------------------------------------
