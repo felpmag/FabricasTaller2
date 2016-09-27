@@ -21,14 +21,14 @@ import java.awt.Dimension;
 import javax.swing.JInternalFrame;
 
 import annotation.Feature;
+import annotation.Feature.RestriccionHijos;
 import uniandes.cupi2.numeroMvc.mundo.Numero;
 
 /**
  * Ventana de visualizaci�n en formato de notas musicales.
  */
-@Feature(padre="InterfazNumeroMvc", nombre="VentanaNotas", xor=true)
-public class VentanaNotas extends JInternalFrame
-{
+@Feature(padre = "Ventana", nombre = "VentanaNotas", relacion = RestriccionHijos.ALT)
+public class VentanaNotas extends JInternalFrame {
 
     // -----------------------------------------------------------------
     // Constantes
@@ -54,22 +54,23 @@ public class VentanaNotas extends JInternalFrame
 
     /**
      * Constructor del panel.
-     * @param numero N�mero a visualizar-modificar.
+     * 
+     * @param numero
+     *            N�mero a visualizar-modificar.
      */
-    @Feature(padre="VentanaNotas", nombre="VentanaNotasConstructor", requerido=true)
-    public VentanaNotas( Numero numero )
-    {
+    @Feature(padre = "VentanaNotas", nombre = "VentanaNotasConstructor", requerido = true)
+    public VentanaNotas(Numero numero) {
 
-        setSize( 276, 150 );
-        setMaximizable( true );
-        setClosable( true );
-        setResizable( true );
-        setPreferredSize( new Dimension( 276, 150 ) );
-        setTitle( "Vista-Controlador Notas Musicales" );
+        setSize(276, 150);
+        setMaximizable(true);
+        setClosable(true);
+        setResizable(true);
+        setPreferredSize(new Dimension(276, 150));
+        setTitle("Vista-Controlador Notas Musicales");
 
         // panelNotas
-        panelNotas = new PanelNotas( numero );
-        add( panelNotas, BorderLayout.CENTER );
+        panelNotas = new PanelNotas(numero);
+        add(panelNotas, BorderLayout.CENTER);
     }
 
 }

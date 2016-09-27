@@ -3,6 +3,7 @@ package util;
 import java.util.Enumeration;
 
 import annotation.Feature;
+import annotation.Feature.RestriccionHijos;
 import featureide.Alt;
 import featureide.And;
 import featureide.Constraints;
@@ -27,9 +28,18 @@ public class FeatureIdeModelBuilder {
 
     public void generateFeatureIDEModel(String path) {
         FeatureModel model = buildModel();
-        model.getStruct().setAnd(new And(root.getFeature().nombre(), null, true));
 
-        processChild(root, model.getStruct().getAnd());
+        Parent concreteRoot = buildConcreteParent(root);
+        if (concreteRoot instanceof And)
+            model.getStruct().setAnd((And) concreteRoot);
+        else if (concreteRoot instanceof Or)
+            model.getStruct().setOr((Or) concreteRoot);
+        else if (concreteRoot instanceof Alt)
+            model.getStruct().setAlt((Alt) concreteRoot);
+        else
+            throw new IllegalStateException("Tipo inesperado para el nodo raiz");
+        
+        processChild(root, concreteRoot);
         model.setConstraints(constraint);
 
         JaxbWriterReader.jaxbWriterNoSchema(model, path);
@@ -93,9 +103,9 @@ public class FeatureIdeModelBuilder {
             wrapper = new And(nombre, null, requerido);
         } else {
             Feature childFeat = ((FeatureNode) node.getChildAt(0)).getFeature();
-            if (childFeat.or()) {
+            if (childFeat.relacion().equals(RestriccionHijos.OR)) {
                 wrapper = new Or(nombre, null, requerido);
-            } else if (childFeat.xor()) {
+            } else if (childFeat.relacion().equals(RestriccionHijos.ALT)) {
                 wrapper = new Alt(nombre, null, requerido);
             } else {
                 wrapper = new And(nombre, null, requerido);

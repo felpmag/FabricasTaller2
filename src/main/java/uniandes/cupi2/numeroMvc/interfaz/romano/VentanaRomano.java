@@ -20,14 +20,14 @@ import java.awt.Dimension;
 import javax.swing.JInternalFrame;
 
 import annotation.Feature;
+import annotation.Feature.RestriccionHijos;
 import uniandes.cupi2.numeroMvc.mundo.Numero;
 
 /**
  * Ventana de visualizaci�n en formato de n�meros romanos.
  */
-@Feature(padre="InterfazNumeroMvc", nombre="VentanaRomano", xor=true)
-public class VentanaRomano extends JInternalFrame
-{
+@Feature(padre = "Ventana", nombre = "VentanaRomano", relacion = RestriccionHijos.ALT)
+public class VentanaRomano extends JInternalFrame {
 
     // -----------------------------------------------------------------
     // Constantes
@@ -53,21 +53,22 @@ public class VentanaRomano extends JInternalFrame
 
     /**
      * Constructor del panel.
-     * @param numero N�mero a visualizar-modificar.
+     * 
+     * @param numero
+     *            N�mero a visualizar-modificar.
      */
-    @Feature(padre="VentanaRomano", nombre="VentanaRomanoConstructor", requerido=true)
-    public VentanaRomano( Numero numero )
-    {
-        setSize( 276, 150 );
-        setMaximizable( true );
-        setClosable( true );
-        setResizable( true );
-        setPreferredSize( new Dimension( 276, 150 ) );
-        setTitle( "Vista-Controlador Romano" );
+    @Feature(padre = "VentanaRomano", nombre = "VentanaRomanoConstructor", requerido = true)
+    public VentanaRomano(Numero numero) {
+        setSize(276, 150);
+        setMaximizable(true);
+        setClosable(true);
+        setResizable(true);
+        setPreferredSize(new Dimension(276, 150));
+        setTitle("Vista-Controlador Romano");
 
         // panelRomano
-        panelRomano = new PanelRomano( numero );
-        add( panelRomano, BorderLayout.CENTER );
+        panelRomano = new PanelRomano(numero);
+        add(panelRomano, BorderLayout.CENTER);
     }
 
 }

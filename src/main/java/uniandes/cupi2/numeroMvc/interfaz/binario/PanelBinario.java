@@ -15,7 +15,6 @@
 
 package uniandes.cupi2.numeroMvc.interfaz.binario;
 
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -23,21 +22,22 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import annotation.Feature;
+import annotation.Feature.RestriccionHijos;
 import uniandes.cupi2.numeroMvc.mundo.Numero;
 
 /**
  * Panel Vista-Controlador de la visualizaci�n Tipo Binario.
  */
-@Feature(padre="VentanaBinario", nombre="PanelBinario", requerido= true, requiero="Numero")
-public class PanelBinario extends JPanel implements Observer, ActionListener
-{
+@Feature(padre = "VentanaBinario", nombre = "PanelBinario", requerido = true, requiero = "Numero")
+public class PanelBinario extends JPanel implements Observer, ActionListener {
 
     // -----------------------------------------------------------------
     // Constantes
@@ -87,50 +87,51 @@ public class PanelBinario extends JPanel implements Observer, ActionListener
 
     /**
      * Constructor del panel.
-     * @param num N�mero a visualizar.
+     * 
+     * @param num
+     *            N�mero a visualizar.
      */
-    @Feature(padre="PanelBinario", nombre="ConstructorPanelBinario", or=true, requerido=true)
-    public PanelBinario( Numero num )
-    {
+    @Feature(padre = "PanelBinario", nombre = "ConstructorPanelBinario", relacion=RestriccionHijos.OR, requerido = true)
+    public PanelBinario(Numero num) {
         // Guarda el n�mero
         numero = num;
 
         // Inicializa el panel
-        setLayout( new BorderLayout( ) );
-        setSize( 261, 106 );
+        setLayout(new BorderLayout());
+        setSize(261, 106);
 
         // EtiquetaNumero
-        etiquetaNumero = new JLabel( );
-        etiquetaNumero.setText( "###" );
-        etiquetaNumero.setHorizontalTextPosition( SwingConstants.CENTER );
-        etiquetaNumero.setHorizontalAlignment( SwingConstants.CENTER );
-        etiquetaNumero.setForeground( new java.awt.Color( 0, 94, 169 ) );
-        etiquetaNumero.setFont( new java.awt.Font( "Courier New", Font.PLAIN, 18 ) );
+        etiquetaNumero = new JLabel();
+        etiquetaNumero.setText("###");
+        etiquetaNumero.setHorizontalTextPosition(SwingConstants.CENTER);
+        etiquetaNumero.setHorizontalAlignment(SwingConstants.CENTER);
+        etiquetaNumero.setForeground(new java.awt.Color(0, 94, 169));
+        etiquetaNumero.setFont(new java.awt.Font("Courier New", Font.PLAIN, 18));
 
         // botonCambiar
-        botonCambiar = new JButton( );
-        botonCambiar.setText( CAMBIAR );
-        botonCambiar.setActionCommand( CAMBIAR );
-        botonCambiar.addActionListener( this );
+        botonCambiar = new JButton();
+        botonCambiar.setText(CAMBIAR);
+        botonCambiar.setActionCommand(CAMBIAR);
+        botonCambiar.addActionListener(this);
 
         // textoNumero
-        textoNumeroBinario = new JTextField( );
+        textoNumeroBinario = new JTextField();
 
         // panelControl
-        JPanel panelControl = new JPanel( );
-        panelControl.setLayout( new BorderLayout( ) );
-        panelControl.add( botonCambiar, BorderLayout.EAST );
-        panelControl.add( textoNumeroBinario, BorderLayout.CENTER );
+        JPanel panelControl = new JPanel();
+        panelControl.setLayout(new BorderLayout());
+        panelControl.add(botonCambiar, BorderLayout.EAST);
+        panelControl.add(textoNumeroBinario, BorderLayout.CENTER);
 
         // Adici�n del panel y la etiqueta
-        add( etiquetaNumero, BorderLayout.CENTER );
-        add( panelControl, BorderLayout.SOUTH );
+        add(etiquetaNumero, BorderLayout.CENTER);
+        add(panelControl, BorderLayout.SOUTH);
 
         // Conecta el observador
-        numero.addObserver( this );
+        numero.addObserver(this);
 
         // Cambia el n�mero
-        etiquetaNumero.setText( Integer.toBinaryString( numero.darNumero( ) ) );
+        etiquetaNumero.setText(Integer.toBinaryString(numero.darNumero()));
     }
 
     // -----------------------------------------------------------------
@@ -140,11 +141,10 @@ public class PanelBinario extends JPanel implements Observer, ActionListener
     /**
      * M�todo llamado por JAVA al salir el panel de la vista del usuario.
      */
-    @Feature(padre="PanelBinario", nombre="RemoveNotifyPanelBinario", or=true)
-    public void removeNotify( )
-    {
+    @Feature(padre = "PanelBinario", nombre = "RemoveNotifyPanelBinario", relacion=RestriccionHijos.OR)
+    public void removeNotify() {
         // Elimina el observador
-        numero.deleteObserver( this );
+        numero.deleteObserver(this);
     }
 
     // -----------------------------------------------------------------
@@ -152,47 +152,45 @@ public class PanelBinario extends JPanel implements Observer, ActionListener
     // -----------------------------------------------------------------
 
     /**
-     * Control: Reemplaza el n�mero visualizado con el n�mero escrito en el campo de texto.
+     * Control: Reemplaza el n�mero visualizado con el n�mero escrito en el
+     * campo de texto.
      */
-    @Feature(padre="PanelBinario", nombre="ModificarNumeroPanelBinario", or=true)
-    public void modificarNumero( )
-    {
-        try
-        {
-            int nuevoNumero = Integer.parseInt( textoNumeroBinario.getText( ), 2 );
-            numero.cambiarNumero( nuevoNumero );
-        }
-        catch( NumberFormatException e )
-        {
-            JOptionPane.showMessageDialog( this, "El n�mero en binario especificado es inv�lido", "Error", JOptionPane.ERROR_MESSAGE );
+    @Feature(padre = "PanelBinario", nombre = "ModificarNumeroPanelBinario", relacion=RestriccionHijos.OR)
+    public void modificarNumero() {
+        try {
+            int nuevoNumero = Integer.parseInt(textoNumeroBinario.getText(), 2);
+            numero.cambiarNumero(nuevoNumero);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El n�mero en binario especificado es inv�lido", "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
     /**
      * Vista: Recibe la notificaci�n de cambio de valor del n�mero.
      */
-    @Feature(padre="PanelBinario", nombre="UpdatePanelBinario", or=true)
-    public void update( Observable sender, Object num )
-    {
-        Integer numero = ( Integer )num;
-        textoNumeroBinario.setText( "" );
+    @Feature(padre = "PanelBinario", nombre = "UpdatePanelBinario", relacion=RestriccionHijos.OR)
+    public void update(Observable sender, Object num) {
+        Integer numero = (Integer) num;
+        textoNumeroBinario.setText("");
 
         // Vista: Actualiza la visualizaci�n
-        etiquetaNumero.setText( Integer.toBinaryString( numero.intValue( ) ) );
+        etiquetaNumero.setText(Integer.toBinaryString(numero.intValue()));
     }
 
     /**
      * Manejo de los eventos de los botones.
-     * @param e Acci�n que gener� el evento.
+     * 
+     * @param e
+     *            Acci�n que gener� el evento.
      */
-    @Feature(padre="PanelBinario", nombre="ActionPerformedPanelBinario", or=true)
-    public void actionPerformed( ActionEvent e )
-    {
-        String comando = e.getActionCommand( );
+    @Feature(padre = "PanelBinario", nombre = "ActionPerformedPanelBinario", relacion=RestriccionHijos.OR)
+    public void actionPerformed(ActionEvent e) {
+        String comando = e.getActionCommand();
 
-        if( CAMBIAR.equals( comando ) )
+        if (CAMBIAR.equals(comando))
             // Control: Modificar N�mero
-            modificarNumero( );
+            modificarNumero();
     }
 
 }

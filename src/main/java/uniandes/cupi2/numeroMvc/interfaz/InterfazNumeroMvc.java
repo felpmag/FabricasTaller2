@@ -41,9 +41,8 @@ import uniandes.cupi2.numeroMvc.mundo.Numero;
 /**
  * Esta es la ventana principal de la aplicaci�n.
  */
-@Feature(nombre="InterfazNumeroMvc")
-public class InterfazNumeroMvc extends JFrame implements ActionListener
-{
+@Feature(nombre = "InterfazNumeroMvc")
+public class InterfazNumeroMvc extends JFrame implements ActionListener {
     // -----------------------------------------------------------------
     // Constantes
     // -----------------------------------------------------------------
@@ -64,12 +63,14 @@ public class InterfazNumeroMvc extends JFrame implements ActionListener
     private static final String SALIR = "SALIR";
 
     /**
-     * Constante para la acci�n del bot�n de nueva ventana de formato decimal.
+     * Constante para la acci�n del bot�n de nueva ventana de formato
+     * decimal.
      */
     private static final String VC_NUMERO = "Numero";
 
     /**
-     * Constante para la acci�n del bot�n de nueva ventana de formato romano.
+     * Constante para la acci�n del bot�n de nueva ventana de formato
+     * romano.
      */
     private static final String VC_ROMANO = "Romano";
 
@@ -79,12 +80,14 @@ public class InterfazNumeroMvc extends JFrame implements ActionListener
     private static final String VC_COLOR = "Color";
 
     /**
-     * Constante para la acci�n del bot�n de nueva ventana de formato musical.
+     * Constante para la acci�n del bot�n de nueva ventana de formato
+     * musical.
      */
     private static final String VC_NOTA = "Nota Musical";
 
     /**
-     * Constante para la acci�n del bot�n de nueva ventana de formato binario.
+     * Constante para la acci�n del bot�n de nueva ventana de formato
+     * binario.
      */
     private static final String VC_BINARIO = "Binario";
 
@@ -104,6 +107,7 @@ public class InterfazNumeroMvc extends JFrame implements ActionListener
     /**
      * Desktop donde se muestran las ventanas adicionales.
      */
+    @Feature(padre = "InterfazNumeroMvc", nombre="Ventana")
     private JDesktopPane desktop;
 
     /**
@@ -138,50 +142,49 @@ public class InterfazNumeroMvc extends JFrame implements ActionListener
     /**
      * Constructor de la ventana principal de la interfaz.
      */
-    public InterfazNumeroMvc( )
-    {
+    public InterfazNumeroMvc() {
         // Crea la clase principal
-        numero = new Numero( );
+        numero = new Numero();
 
         // Construye la forma
-        setTitle( "Numero - MVC" );
-        getContentPane( ).setLayout( new BorderLayout( ) );
-        setSize( 530, 530 );
-        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        setTitle("Numero - MVC");
+        getContentPane().setLayout(new BorderLayout());
+        setSize(530, 530);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Men� ventana
-        barraMenu = new JMenuBar( );
+        barraMenu = new JMenuBar();
 
-        menu = new JMenu( "VC" );
+        menu = new JMenu("VC");
 
-        menu.setMnemonic( KeyEvent.VK_D );
-        barraMenu.add( menu );
+        menu.setMnemonic(KeyEvent.VK_D);
+        barraMenu.add(menu);
 
         // Men� ventana- Nueva ventana
-        itemNuevo = new JMenuItem( "Nuevo VC" );
-        itemNuevo.setMnemonic( KeyEvent.VK_N );
-        itemNuevo.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_N, ActionEvent.ALT_MASK ) );
-        itemNuevo.setActionCommand( NUEVO );
-        itemNuevo.addActionListener( this );
-        menu.add( itemNuevo );
+        itemNuevo = new JMenuItem("Nuevo VC");
+        itemNuevo.setMnemonic(KeyEvent.VK_N);
+        itemNuevo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
+        itemNuevo.setActionCommand(NUEVO);
+        itemNuevo.addActionListener(this);
+        menu.add(itemNuevo);
 
         // Men� ventana- Salir
-        itemSalir = new JMenuItem( "Salir" );
-        itemSalir.setMnemonic( KeyEvent.VK_S );
-        itemSalir.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_S, ActionEvent.ALT_MASK ) );
-        itemSalir.setActionCommand( SALIR );
-        itemSalir.addActionListener( this );
-        menu.add( itemSalir );
-        setJMenuBar( barraMenu );
+        itemSalir = new JMenuItem("Salir");
+        itemSalir.setMnemonic(KeyEvent.VK_S);
+        itemSalir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK));
+        itemSalir.setActionCommand(SALIR);
+        itemSalir.addActionListener(this);
+        menu.add(itemSalir);
+        setJMenuBar(barraMenu);
 
         // Creaci�n de los paneles aqu�
-        panelExtension = new PanelExtension( this );
-        getContentPane( ).add( panelExtension, BorderLayout.SOUTH );
+        panelExtension = new PanelExtension(this);
+        getContentPane().add(panelExtension, BorderLayout.SOUTH);
 
         // Agrega el Escritorio
-        desktop = new JDesktopPane( );
-        getContentPane( ).add( desktop, BorderLayout.CENTER );
-        desktop.setBackground( Color.LIGHT_GRAY );
+        desktop = new JDesktopPane();
+        getContentPane().add(desktop, BorderLayout.CENTER);
+        desktop.setBackground(Color.LIGHT_GRAY);
     }
 
     // -----------------------------------------------------------------
@@ -191,41 +194,42 @@ public class InterfazNumeroMvc extends JFrame implements ActionListener
     /**
      * Crea una nueva ventana (vista-controlador) del n�mero (modelo).
      */
-    public void crearNuevaVentana( )
-    {
+    public void crearNuevaVentana() {
         JInternalFrame ventana = null;
         //
         // Muestra las opciones al usuario
-        String vc = ( String )JOptionPane.showInputDialog( this, "Ventana a crear", "Ventana", JOptionPane.QUESTION_MESSAGE, null, new String[]{ VC_NUMERO, VC_ROMANO, VC_COLOR, VC_NOTA, VC_BINARIO }, null );
-        if( vc != null )
-        {
-            if( VC_NUMERO.equals( vc ) )
-                ventana = new VentanaNumero( numero );
-            else if( VC_ROMANO.equals( vc ) )
-                ventana = new VentanaRomano( numero );
-            else if( VC_NOTA.equals( vc ) )
-                ventana = new VentanaNotas( numero );
-            else if( VC_BINARIO.equals( vc ) )
-                ventana = new VentanaBinario( numero );
+        String vc = (String) JOptionPane.showInputDialog(this, "Ventana a crear", "Ventana",
+                JOptionPane.QUESTION_MESSAGE, null, new String[]{VC_NUMERO, VC_ROMANO, VC_COLOR, VC_NOTA, VC_BINARIO},
+                null);
+        if (vc != null) {
+            if (VC_NUMERO.equals(vc))
+                ventana = new VentanaNumero(numero);
+            else if (VC_ROMANO.equals(vc))
+                ventana = new VentanaRomano(numero);
+            else if (VC_NOTA.equals(vc))
+                ventana = new VentanaNotas(numero);
+            else if (VC_BINARIO.equals(vc))
+                ventana = new VentanaBinario(numero);
             else
-                ventana = new VentanaColor( numero );
+                ventana = new VentanaColor(numero);
 
             // Agrega y muestra la ventana
-            desktop.add( ventana );
-            ventana.setVisible( true );
+            desktop.add(ventana);
+            ventana.setVisible(true);
         }
     }
 
     /**
      * Manejo de los eventos de los botones.
-     * @param e Acci�n que gener� el evento.
+     * 
+     * @param e
+     *            Acci�n que gener� el evento.
      */
-    public void actionPerformed( ActionEvent e )
-    {
-        if( NUEVO.equals( e.getActionCommand( ) ) )
-            crearNuevaVentana( );
+    public void actionPerformed(ActionEvent e) {
+        if (NUEVO.equals(e.getActionCommand()))
+            crearNuevaVentana();
         else
-            System.exit( 0 );
+            System.exit(0);
     }
 
     // -----------------------------------------------------------------
@@ -235,21 +239,19 @@ public class InterfazNumeroMvc extends JFrame implements ActionListener
     /**
      * M�todo para la extensi�n 1
      */
-    //@Feature(padre = InterfazNumeroMvc.class, or = true)
-    public void reqFuncOpcion1( )
-    {
-        String resultado = numero.metodo1( );
-        JOptionPane.showMessageDialog( this, resultado, "Respuesta", JOptionPane.INFORMATION_MESSAGE );
+    // @Feature(padre = InterfazNumeroMvc.class, relacion=RestriccionHijos.OR)
+    public void reqFuncOpcion1() {
+        String resultado = numero.metodo1();
+        JOptionPane.showMessageDialog(this, resultado, "Respuesta", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
      * M�todo para la extensi�n 2
      */
-    //@Feature(padre = InterfazNumeroMvc.class, or = true)
-    public void reqFuncOpcion2( )
-    {
-        String resultado = numero.metodo2( );
-        JOptionPane.showMessageDialog( this, resultado, "Respuesta", JOptionPane.INFORMATION_MESSAGE );
+    // @Feature(padre = InterfazNumeroMvc.class, relacion=RestriccionHijos.OR)
+    public void reqFuncOpcion2() {
+        String resultado = numero.metodo2();
+        JOptionPane.showMessageDialog(this, resultado, "Respuesta", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // -----------------------------------------------------------------
@@ -258,12 +260,14 @@ public class InterfazNumeroMvc extends JFrame implements ActionListener
 
     /**
      * Este m�todo ejecuta la aplicaci�n, creando una nueva interfaz
-     * @param args Argumentos para la ejecuci�n de la aplicaci�n. En este caso no se requieren
+     * 
+     * @param args
+     *            Argumentos para la ejecuci�n de la aplicaci�n. En este
+     *            caso no se requieren
      */
-    public static void main( String[] args )
-    {
-        InterfazNumeroMvc interfaz = new InterfazNumeroMvc( );
-        interfaz.setVisible( true );
+    public static void main(String[] args) {
+        InterfazNumeroMvc interfaz = new InterfazNumeroMvc();
+        interfaz.setVisible(true);
     }
 
 }

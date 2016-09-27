@@ -15,19 +15,18 @@
 package uniandes.cupi2.numeroMvc.interfaz.notas;
 
 import javax.sound.midi.MidiChannel;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
 
 import annotation.Feature;
-
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
+import annotation.Feature.RestriccionHijos;
 
 /**
  * Clase que permite tocar una nota.
  */
-@Feature(padre="VentanaNotas", nombre="ReproductorNota", or=true )
-public class ReproductorNota
-{
+@Feature(padre = "VentanaNotas", nombre = "ReproductorNota", relacion=RestriccionHijos.OR)
+public class ReproductorNota {
     // -----------------------------------------------------------------
     // Atributos
     // -----------------------------------------------------------------
@@ -47,67 +46,62 @@ public class ReproductorNota
     // -----------------------------------------------------------------
 
     /**
-     * Toca la nota indicada, las notas van de 0 a 120 siendo 60 el Do central, 61 Do#, etc
-     * @param nota - valor num�rico de la nota a reproducir.
-     * @param canal - el instrumento con el que se quiere tocar la nota. Van de 0 a 15. 0, es el piano.
+     * Toca la nota indicada, las notas van de 0 a 120 siendo 60 el Do central,
+     * 61 Do#, etc
+     * 
+     * @param nota
+     *            - valor num�rico de la nota a reproducir.
+     * @param canal
+     *            - el instrumento con el que se quiere tocar la nota. Van de 0
+     *            a 15. 0, es el piano.
      */
-    @Feature(padre="ReproductorNota", nombre="TocarNotaReproductorNota", requerido=true)
-    public static void tocarNota( int nota, int canal )
-    {
+    @Feature(padre = "ReproductorNota", nombre = "TocarNotaReproductorNota", requerido = true)
+    public static void tocarNota(int nota, int canal) {
         // Inicializa si es necesario
-        if( !inicializado )
-        {
+        if (!inicializado) {
             inicializado = true;
             // obtiene un sintetizador del sistema
-            try
-            {
-                synth = MidiSystem.getSynthesizer( );
+            try {
+                synth = MidiSystem.getSynthesizer();
                 // abre el sintetizador
-                synth.open( );
-            }
-            catch( MidiUnavailableException e )
-            {
-                e.printStackTrace( );
+                synth.open();
+            } catch (MidiUnavailableException e) {
+                e.printStackTrace();
             }
         }
 
         final int notaT = nota;
         final int canalT = canal;
 
-        Thread t = new Thread( new Runnable( )
-        {
+        Thread t = new Thread(new Runnable() {
             /**
              * Es el canal que se usa para reproducir las notas.
              */
             private MidiChannel channel;
 
-            public void run( )
-            {
-                synchronized( synth )
-                {
+            public void run() {
+                synchronized (synth) {
                     // define el instrumento a tocar
-                    channel = synth.getChannels( )[ canalT ];
-                    // prende la nota indicada en el n�mero dado, con un tiempo de decaimiento promedio
-                    channel.noteOn( notaT, 100 );
+                    channel = synth.getChannels()[canalT];
+                    // prende la nota indicada en el n�mero dado, con un
+                    // tiempo de decaimiento promedio
+                    channel.noteOn(notaT, 100);
 
                     // Realiza una espera para darle duraci�n a la nota
-                    try
-                    {
-                        Thread.yield( );
-                        Thread.sleep( 300 );
-                    }
-                    catch( InterruptedException e )
-                    {
-                        e.printStackTrace( );
+                    try {
+                        Thread.yield();
+                        Thread.sleep(300);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
 
                     // apaga la nota tocada
-                    channel.noteOff( notaT, 100 );
+                    channel.noteOff(notaT, 100);
                 }
             }
-        } );
+        });
 
-        t.run( );
+        t.run();
     }
 
 }

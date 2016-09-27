@@ -21,14 +21,14 @@ import java.awt.Dimension;
 import javax.swing.JInternalFrame;
 
 import annotation.Feature;
+import annotation.Feature.RestriccionHijos;
 import uniandes.cupi2.numeroMvc.mundo.Numero;
 
 /**
  * Ventana de visualizaci�n en formato de n�meros decimales.
  */
-@Feature(padre="InterfazNumeroMvc", nombre="VentanaNumero", xor=true)
-public class VentanaNumero extends JInternalFrame
-{
+@Feature(padre = "Ventana", nombre = "VentanaNumero", relacion = RestriccionHijos.ALT)
+public class VentanaNumero extends JInternalFrame {
 
     // -----------------------------------------------------------------
     // Constantes
@@ -54,21 +54,22 @@ public class VentanaNumero extends JInternalFrame
 
     /**
      * Constructor del panel.
-     * @param numero N�mero a visualizar-modificar.
+     * 
+     * @param numero
+     *            N�mero a visualizar-modificar.
      */
-    @Feature(padre="VentanaNumero", nombre="VentanaNumeroConstructor", requerido=true)
-    public VentanaNumero( Numero numero )
-    {
-        setSize( 276, 150 );
-        setMaximizable( true );
-        setClosable( true );
-        setResizable( true );
-        setPreferredSize( new Dimension( 276, 150 ) );
-        setTitle( "Vista-Controlador Numero" );
+    @Feature(padre = "VentanaNumero", nombre = "VentanaNumeroConstructor", requerido = true)
+    public VentanaNumero(Numero numero) {
+        setSize(276, 150);
+        setMaximizable(true);
+        setClosable(true);
+        setResizable(true);
+        setPreferredSize(new Dimension(276, 150));
+        setTitle("Vista-Controlador Numero");
 
         // panelNumero
-        panelNumero = new PanelNumero( numero );
+        panelNumero = new PanelNumero(numero);
 
-        add( panelNumero, BorderLayout.CENTER );
+        add(panelNumero, BorderLayout.CENTER);
     }
 }

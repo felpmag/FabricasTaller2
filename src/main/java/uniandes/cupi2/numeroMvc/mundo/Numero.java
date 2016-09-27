@@ -16,14 +16,13 @@ package uniandes.cupi2.numeroMvc.mundo;
 import java.util.Observable;
 
 import annotation.Feature;
-import uniandes.cupi2.numeroMvc.interfaz.InterfazNumeroMvc;
+import annotation.Feature.RestriccionHijos;
 
 /**
  * Representa un n�mero que puede ser observado.
  */
-@Feature(nombre = "Numero", padre = "InterfazNumeroMvc", or=true, requerido= true)
-public class Numero extends Observable
-{
+@Feature(nombre = "Numero", padre = "InterfazNumeroMvc", requerido = true)
+public class Numero extends Observable {
 
     // -----------------------------------------------------------------
     // Atributos
@@ -41,8 +40,7 @@ public class Numero extends Observable
     /**
      * Construye el n�mero inicializ�ndolo en 0.
      */
-    public Numero( )
-    {
+    public Numero() {
         numero = 0;
     }
 
@@ -52,25 +50,26 @@ public class Numero extends Observable
 
     /**
      * Cambia el valor del n�mero.
-     * @param nuevoNumero Nuevo valor de n�mero.
+     * 
+     * @param nuevoNumero
+     *            Nuevo valor de n�mero.
      */
-    @Feature(padre="Numero", nombre="CambiarNumero", or=true)
-    public void cambiarNumero( int nuevoNumero )
-    {
+    @Feature(padre = "Numero", nombre = "CambiarNumero", relacion=RestriccionHijos.OR)
+    public void cambiarNumero(int nuevoNumero) {
         // Cambia el n�mero
         numero = nuevoNumero;
         // Notifica a los observadores, informando el nuevo n�mero
-        setChanged( );
-        notifyObservers( new Integer( numero ) );
+        setChanged();
+        notifyObservers(new Integer(numero));
     }
 
     /**
      * Devuelve el valor del n�mero.
+     * 
      * @return Valor actual del n�mero.
      */
-    @Feature(padre="Numero", nombre="DarNumero", or=true)
-    public int darNumero( )
-    {
+    @Feature(padre = "Numero", nombre = "DarNumero", relacion=RestriccionHijos.OR)
+    public int darNumero() {
         return numero;
     }
 
@@ -80,21 +79,21 @@ public class Numero extends Observable
 
     /**
      * M�todo para la extensi�n 1.
+     * 
      * @return respuesta1.
      */
-    @Feature(padre="Numero", nombre="MetodoUno", or=true)
-    public String metodo1( )
-    {
+    @Feature(padre = "Numero", nombre = "MetodoUno", relacion=RestriccionHijos.OR)
+    public String metodo1() {
         return "Respuesta 1";
     }
 
     /**
      * M�todo para la extensi�n2.
+     * 
      * @return respuesta2.
      */
-    @Feature(padre="Numero", nombre="MetodoDos", or=true)
-    public String metodo2( )
-    {
+    @Feature(padre = "Numero", nombre = "MetodoDos", relacion=RestriccionHijos.OR)
+    public String metodo2() {
         return "Respuesta 2";
     }
 

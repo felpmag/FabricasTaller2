@@ -22,13 +22,13 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import annotation.Feature;
+import annotation.Feature.RestriccionHijos;
 
 /**
  * Panel de manejo de extensiones
  */
-@Feature(nombre = "PanelExtension", padre = "InterfazNumeroMvc", or = true, requerido = true)
-public class PanelExtension extends JPanel implements ActionListener
-{
+@Feature(nombre = "PanelExtension", padre = "InterfazNumeroMvc", requerido = true)
+public class PanelExtension extends JPanel implements ActionListener {
 
     // -----------------------------------------------------------------
     // Constantes
@@ -78,26 +78,27 @@ public class PanelExtension extends JPanel implements ActionListener
 
     /**
      * Constructor del panel.
-     * @param ip Ventana principal.
+     * 
+     * @param ip
+     *            Ventana principal.
      */
-    public PanelExtension( InterfazNumeroMvc ip )
-    {
+    public PanelExtension(InterfazNumeroMvc ip) {
         principal = ip;
 
-        setBorder( new TitledBorder( "Opciones" ) );
-        setLayout( new GridLayout( 1, 2 ) );
+        setBorder(new TitledBorder("Opciones"));
+        setLayout(new GridLayout(1, 2));
 
         // Bot�n opci�n 1
-        btnOpcion1 = new JButton( "Opci�n 1" );
-        btnOpcion1.setActionCommand( OPCION_1 );
-        btnOpcion1.addActionListener( this );
-        add( btnOpcion1 );
+        btnOpcion1 = new JButton("Opci�n 1");
+        btnOpcion1.setActionCommand(OPCION_1);
+        btnOpcion1.addActionListener(this);
+        add(btnOpcion1);
 
         // Bot�n opci�n 2
-        btnOpcion2 = new JButton( "Opci�n 2" );
-        btnOpcion2.setActionCommand( OPCION_2 );
-        btnOpcion2.addActionListener( this );
-        add( btnOpcion2 );
+        btnOpcion2 = new JButton("Opci�n 2");
+        btnOpcion2.setActionCommand(OPCION_2);
+        btnOpcion2.addActionListener(this);
+        add(btnOpcion2);
     }
 
     // -----------------------------------------------------------------
@@ -106,19 +107,17 @@ public class PanelExtension extends JPanel implements ActionListener
 
     /**
      * Manejo de los eventos de los botones.
-     * @param e Acci�n que gener� el evento.
+     * 
+     * @param e
+     *            Acci�n que gener� el evento.
      */
     @Override
-	@Feature(nombre="ManejoEvento", padre="PanelExtension", or=true)
-    public void actionPerformed( ActionEvent e )
-    {
-        if( OPCION_1.equals( e.getActionCommand( ) ) )
-        {
-            principal.reqFuncOpcion1( );
-        }
-        else if( OPCION_2.equals( e.getActionCommand( ) ) )
-        {
-            principal.reqFuncOpcion2( );
+    @Feature(nombre = "ManejoEvento", padre = "PanelExtension", relacion=RestriccionHijos.OR)
+    public void actionPerformed(ActionEvent e) {
+        if (OPCION_1.equals(e.getActionCommand())) {
+            principal.reqFuncOpcion1();
+        } else if (OPCION_2.equals(e.getActionCommand())) {
+            principal.reqFuncOpcion2();
         }
     }
 

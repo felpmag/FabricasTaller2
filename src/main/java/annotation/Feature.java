@@ -6,10 +6,13 @@ package annotation;
  * @author felipemartinez
  */
 public @interface Feature {
+    public enum RestriccionHijos{
+        AND,OR,ALT;
+    }
+    
 	String nombre();
 	String padre() default "";
-	boolean or() default false;
-	boolean xor() default false;
+	RestriccionHijos relacion() default RestriccionHijos.AND;
 	boolean requerido() default false;
 	String requiero() default "";
 }

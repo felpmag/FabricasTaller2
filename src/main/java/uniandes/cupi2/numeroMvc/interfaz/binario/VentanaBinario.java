@@ -21,14 +21,14 @@ import java.awt.Dimension;
 import javax.swing.JInternalFrame;
 
 import annotation.Feature;
+import annotation.Feature.RestriccionHijos;
 import uniandes.cupi2.numeroMvc.mundo.Numero;
 
 /**
  * Ventana de visualizaci�n en formato de n�meros binarios.
  */
-@Feature(padre="InterfazNumeroMvc", nombre="VentanaBinario", xor=true)
-public class VentanaBinario extends JInternalFrame
-{
+@Feature(padre = "Ventana", nombre = "VentanaBinario", relacion = RestriccionHijos.ALT)
+public class VentanaBinario extends JInternalFrame {
 
     // -----------------------------------------------------------------
     // Constantes
@@ -54,22 +54,23 @@ public class VentanaBinario extends JInternalFrame
 
     /**
      * Constructor del panel.
-     * @param numero N�mero a visualizar-modificar.
+     * 
+     * @param numero
+     *            N�mero a visualizar-modificar.
      */
-    @Feature(padre="VentanaBinario", nombre="VentanaBinarioConstructor", requerido=true)
-    public VentanaBinario( Numero numero )
-    {
+    @Feature(padre = "VentanaBinario", nombre = "VentanaBinarioConstructor", requerido = true)
+    public VentanaBinario(Numero numero) {
         // Inicializa ventana
-        setSize( 276, 150 );
-        setMaximizable( true );
-        setClosable( true );
-        setResizable( true );
-        setPreferredSize( new Dimension( 276, 150 ) );
-        setTitle( "Vista-Controlador Binario" );
+        setSize(276, 150);
+        setMaximizable(true);
+        setClosable(true);
+        setResizable(true);
+        setPreferredSize(new Dimension(276, 150));
+        setTitle("Vista-Controlador Binario");
 
         // PanelBinario
-        panelBinario = new PanelBinario( numero );
-        add( panelBinario, BorderLayout.CENTER );
+        panelBinario = new PanelBinario(numero);
+        add(panelBinario, BorderLayout.CENTER);
     }
 
 }

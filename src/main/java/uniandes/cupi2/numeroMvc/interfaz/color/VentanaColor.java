@@ -20,14 +20,14 @@ import java.awt.BorderLayout;
 import javax.swing.JInternalFrame;
 
 import annotation.Feature;
+import annotation.Feature.RestriccionHijos;
 import uniandes.cupi2.numeroMvc.mundo.Numero;
 
 /**
  * Ventana de visualizaci�n en formato de color.
  */
-@Feature(padre="InterfazNumeroMvc", nombre="VentanaColor", xor=true)
-public class VentanaColor extends JInternalFrame
-{
+@Feature(padre = "Ventana", nombre = "VentanaColor", relacion = RestriccionHijos.ALT)
+public class VentanaColor extends JInternalFrame {
 
     // -----------------------------------------------------------------
     // Constantes
@@ -53,22 +53,23 @@ public class VentanaColor extends JInternalFrame
 
     /**
      * Constructor del panel.
-     * @param numero N�mero a visualizar-modificar.
+     * 
+     * @param numero
+     *            N�mero a visualizar-modificar.
      */
-    @Feature(padre="VentanaColor", nombre="VentanaColorConstructor", requerido=true)
-    public VentanaColor( Numero numero )
-    {
-        setSize( 276, 150 );
-        setMaximizable( true );
-        setClosable( true );
-        setResizable( true );
-        setPreferredSize( new java.awt.Dimension( 276, 150 ) );
-        setTitle( "Vista-Controlador Color" );
+    @Feature(padre = "VentanaColor", nombre = "VentanaColorConstructor", requerido = true)
+    public VentanaColor(Numero numero) {
+        setSize(276, 150);
+        setMaximizable(true);
+        setClosable(true);
+        setResizable(true);
+        setPreferredSize(new java.awt.Dimension(276, 150));
+        setTitle("Vista-Controlador Color");
 
         // panelColor
-        panelColor = new PanelColor( numero );
+        panelColor = new PanelColor(numero);
 
-        add( panelColor, BorderLayout.CENTER );
+        add(panelColor, BorderLayout.CENTER);
     }
 
 }
